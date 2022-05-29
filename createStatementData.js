@@ -1,7 +1,4 @@
-function statement(invoices, plays) {
-  return renderPlainText(createStatementData(invoices, plays));
-}
-function createStatementData(invoice, plays) {
+export function createStatementData(invoice, plays) {
   const statementData = {};
   statementData.customer = invoice.customer;
   statementData.performances = invoice.performances.map(enrichPerformance);
@@ -58,25 +55,4 @@ function createStatementData(invoice, plays) {
   function playFor(aPerformance) {
     return plays[aPerformance.playID];
   }
-}
-
-function renderPlainText(data) {
-  let result = `Statement for ${data.customer}\n`;
-  for (let perf of data.performances) {
-    // print line for this order
-    result += ` ${perf.play.name}: ${usd(perf.amount)} (${
-      perf.audience
-    } seats)\n`;
-  }
-  result += `Amount owed is ${usd(data.totalAmount)}\n`;
-  result += `You earned ${data.totalVolumeCredits} credits\n`;
-  return result;
-}
-// 格式化为美元展示
-function usd(aNumber) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 2,
-  }).format(aNumber / 100);
 }
