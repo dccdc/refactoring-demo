@@ -6,11 +6,11 @@ export function createStatementData(invoice, plays) {
   statementData.totalVolumeCredits = totalVolumeCredits(statementData);
   return statementData;
 
-  function totalVolumeCredits() {
+  function totalVolumeCredits(data) {
     return data.performances.reduce((total, p) => total + p.volumeCredits, 0);
   }
 
-  function totalAmount() {
+  function totalAmount(data) {
     return data.performances.reduce((total, p) => total + p.amount, 0);
   }
 
@@ -40,8 +40,8 @@ export function createStatementData(invoice, plays) {
         break;
       default:
         throw new Error(`unknown type: ${aPerformance.play.type}`);
-        return result;
     }
+    return result;
   }
   // 提炼获取积分逻辑
   function volumeCreditsFor(aPerformance) {
